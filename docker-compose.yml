@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  shop:
+    restart: always
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    working_dir: /graphql_shop
+    volumes:
+     - .:/graphql_shop
+    ports:
+     - "8000:8000"
+    depends_on:
+      - migration
+  migration:
+    build: .
+    command: python manage.py migrate
+    volumes:
+     - .:/graphql_shop
